@@ -1,0 +1,17 @@
+Package: bayesianAdsorption
+Type: Package
+Title: Inferencia bayesiana para modelos empiricos
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: Calcula curvas de modelos empiricos para columnas de adsorcion en base a datos experimentales. 
+        Permite escalar a distintas condiciones operativas
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Config/roxygen2/version: 8.1.0
