@@ -47,12 +47,16 @@ LogLikNorm.dens <- function(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza=N
 #' @param Mod Modelo
 #' @param Dat Datos
 #' @param par Par
+#' @param mu opcional, si hay distribucion a priori
+#' @param sigma opcional, si hay distribucion a priori
+#' @param covarianza opcional, si hay distribucion a priori
+#'
 #'
 #' @returns log verosimilitud
 #' @export
 #'
 #' @examples ejemplo1
-LogLikNorm.dens <- function(Mod, Dat, par){
+LogLikNorm.dens <- function(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza=NULL){
 
   Cf <- Mod$Cr(Dat$tt, par[1:Mod$npar])
 

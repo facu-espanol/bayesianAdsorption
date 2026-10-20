@@ -4,9 +4,9 @@
 \alias{LogLikNorm.dens}
 \title{Title}
 \usage{
-LogLikNorm.dens(Mod, Dat, par)
+LogLikNorm.dens(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza = NULL)
 
-LogLikNorm.dens(Mod, Dat, par)
+LogLikNorm.dens(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza = NULL)
 }
 \arguments{
 \item{Mod}{Modelo}
