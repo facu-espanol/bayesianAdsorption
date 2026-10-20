@@ -19,6 +19,3 @@ Ejecucion
 \description{
 Title
 }
-\examples{
-ejemplo
-}

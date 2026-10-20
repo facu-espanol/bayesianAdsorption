@@ -10,10 +10,6 @@
 #' @returns
 #' Ejecucion
 #'
-#' @export
-#'
-#' @examples
-#' ejemplo
 mcmc <- function(Mod, Dat, cfg) {
   # Desempaqueta cfg
   Ermod               <- cfg$Ermod
@@ -141,5 +137,115 @@ mcmc <- function(Mod, Dat, cfg) {
     mod = Mod,
     ermod = Ermod
   )
+  return(ret)
+}
+
+
+
+
+#' Title
+#'
+#' @param Mod Modelo
+#' @param Dat Datos
+#' @param config Objeto configuracion
+#'
+#' @returns curva
+#' @export
+#'
+#' @examples ejemplo1
+PostSamp <- function(
+    Mod,
+    Dat,
+    config = list()
+) {
+
+  cfg <- modifyList(PostSampDefaults, config)
+
+  if (is.null(cfg$modpar.int)) {
+    cfg$modpar.int <- Mod$parint
+  }
+
+  if (is.null(cfg$ermodpar.int)) {
+    cfg$ermodpar.int <- cfg$Ermod$parint
+  }
+
+  if (is.null(cfg$ermodpar.ini)) {
+    cfg$ermodpar.ini <- cfg$Ermod$parini
+  }
+
+
+  # PRIOR MULTIVARIADA
+
+  if (!is.null(cfg$modpar.multivariada)) {
+
+    # La multivariada contiene el vector de medias
+    # y la matriz de covarianza.
+    mu <- cfg$modpar.multivariada$media
+    cfg$modpar.covarianza <- cfg$modpar.multivariada$covarianza
+
+    # Se obtienen los desvíos individuales de la diagonal.
+    # Se mantienen por compatibilidad con la likelihood.
+    sigma <- sqrt(diag(cfg$modpar.covarianza))
+
+    # Si no se proporciona un valor inicial,
+    # el algoritmo comienza desde la media de la multivariada.
+    if (is.null(cfg$modpar.ini)) {
+      cfg$modpar.ini <- mu
+    }
+
+  } else {
+
+    # PRIOR INDEPENDIENTE O SIN PRIOR
+
+    if (is.null(cfg$modpar.ini)) {
+      cfg$modpar.ini <- Mod$parini
+    }
+
+    if (
+      is.null(cfg$modpar.ini) &&
+      !is.null(cfg$modpar.prior)
+    ) {
+      cfg$modpar.ini <- sapply(
+        cfg$modpar.prior,
+        function(x) x$mean
+      )
+    }
+
+    if (!is.null(cfg$modpar.prior)) {
+
+      mu <- sapply(
+        cfg$modpar.prior,
+        function(x) x$mean
+      )
+
+      sigma <- sapply(
+        cfg$modpar.prior,
+        function(x) x$sd
+      )
+
+    } else {
+
+      mu <- NULL
+      sigma <- NULL
+      cfg$modpar.covarianza <- NULL
+    }
+  }
+
+  # validar que modpar.multivariada tenga
+  # los elementos "media" y "covarianza".
+  #
+  # validar las dimensiones de media y covarianza.
+  #
+  # validar que la covarianza sea simétrica.
+  #
+  # validar que la covarianza sea definida positiva.
+  #
+  # validar que modpar.ini esté dentro
+  # de los intervalos permitidos.
+
+  cfg$mu    <- mu
+  cfg$sigma <- sigma
+
+  ret <- mcmc(Mod, Dat, cfg)
   return(ret)
 }
