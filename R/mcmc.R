@@ -1,3 +1,11 @@
+#calcula prediccion simulada con error normal
+PredNorm <- function(tt,Mod,par){
+  val <- rnorm(1,Mod$Cr(tt,par[1:Mod$npar]),par[(Mod$npar+1)]) ##par[(Mod$npar+1)]
+  return(val)
+}
+#modelo de error
+Ermod.Norm <- list(llikd=LogLikNorm.dens,pred=PredNorm,npar=1,parint=c(0,0.1),parini=0.05)
+
 #' Title
 #'
 #' @param Mod
@@ -8,7 +16,7 @@
 #' Configuracion
 #'
 #' @returns
-#' Ejecucion
+#' Ejecucions
 #'
 mcmc <- function(Mod, Dat, cfg) {
   # Desempaqueta cfg

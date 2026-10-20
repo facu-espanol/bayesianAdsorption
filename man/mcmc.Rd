@@ -14,7 +14,7 @@ mcmc(Mod, Dat, cfg)
 \item{cfg}{Configuracion}
 }
 \value{
-Ejecucion
+Ejecucions
 }
 \description{
 Title
