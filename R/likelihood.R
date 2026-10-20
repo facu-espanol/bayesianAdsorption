@@ -40,36 +40,4 @@ LogLikNorm.dens <- function(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza=N
 }
 
 
-# Modelo de error normal: calcula la log-verosimilitud y genera predicciones
-# agregando ruido gaussiano (σ constante) a la salida del modelo determinístico.
-#' Title
-#'
-#' @param Mod Modelo
-#' @param Dat Datos
-#' @param par Par
-#' @param mu opcional, si hay distribucion a priori
-#' @param sigma opcional, si hay distribucion a priori
-#' @param covarianza opcional, si hay distribucion a priori
-#'
-#'
-#' @returns log verosimilitud
-#' @export
-#'
-#' @examples ejemplo1
-LogLikNorm.dens <- function(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza=NULL){
-
-  Cf <- Mod$Cr(Dat$tt, par[1:Mod$npar])
-
-  #Calcula la log-verosimilitud
-  val <- sum(dnorm(Dat$Cr, Cf, par[(Mod$npar+1)], log = TRUE),na.rm = TRUE);
-
-  return(val)
-}
-
-#calcula prediccion simulada con error normal
-PredNorm <- function(tt,Mod,par){
-  val <- rnorm(1,Mod$Cr(tt,par[1:Mod$npar]),par[(Mod$npar+1)]) ##par[(Mod$npar+1)]
-  return(val)
-}
-#modelo de error
-Ermod.Norm <- list(llikd=LogLikNorm.dens,pred=PredNorm,npar=1,parint=c(0,0.1),parini=0.05)
+# FALTA AGREGAR LA LOG VEROSIMILITUD PERO DIFERENCIADA DE LA OTRA. NO SON LO MISMO

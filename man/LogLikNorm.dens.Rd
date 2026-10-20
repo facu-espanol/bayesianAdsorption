@@ -5,15 +5,13 @@
 \title{Title}
 \usage{
 LogLikNorm.dens(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza = NULL)
-
-LogLikNorm.dens(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza = NULL)
 }
 \arguments{
 \item{Mod}{Modelo}
 
-\item{Dat}{Datos}
+\item{Dat}{Datos de entrada}
 
-\item{par}{Par}
+\item{par}{Par (a,b)}
 
 \item{mu}{opcional, si hay distribucion a priori}
 
@@ -23,15 +21,10 @@ LogLikNorm.dens(Mod, Dat, par, mu = NULL, sigma = NULL, covarianza = NULL)
 }
 \value{
 log verosimilitud modificada
-
-log verosimilitud
 }
 \description{
 Title
-
-Title
 }
 \examples{
-ejemplo1
 ejemplo1
 }
